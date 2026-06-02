@@ -7,8 +7,8 @@ autoinstall:
     variant: ''
   early-commands:
     - |
-      nmcli dev wifi connect "YOUR_WIFI_SSID_1" password "YOUR_WIFI_PASSWORD_1" 2>/dev/null || \
-      nmcli dev wifi connect "YOUR_WIFI_SSID_2" password "YOUR_WIFI_PASSWORD_2" 2>/dev/null || true
+      nmcli dev wifi connect "SSID da Rede" password "Senha da Rede" 2>/dev/null || \
+      nmcli dev wifi connect "SSID da Rede" password "Senha da Rede" 2>/dev/null || true
       sleep 15
   apt:
     geoip: true
@@ -41,7 +41,7 @@ autoinstall:
       - type: dm_crypt
         id: dm-crypt0
         volume: part-luks
-        key: "YOUR_LUKS_PASSWORD_HERE"
+        key: "CHANGE_ME_LUKS_PASSWORD"
       - type: lvm_volgroup
         id: vg0
         name: ubuntu-vg
@@ -76,17 +76,17 @@ autoinstall:
         device: format-boot
         path: /boot
   identity:
-    hostname: ubuntu-temp
-    username: tempuser
-    password: "$6$REPLACE_WITH_PASSWORD_HASH"
+    hostname: ubuntu-teste
+    username: "nome de usuário"
+    password: "hash da senha de usuário"
   ssh:
     install-server: false
   updates: security
-  late-commands:
+    late-commands:
     - |
       SERIAL=$(dmidecode -s system-serial-number | tr -d '[:space:]')
-      echo "COMPANY${SERIAL}" > /target/etc/hostname
-      sed -i "s/ubuntu-temp/COMPANY${SERIAL}/g" /target/etc/hosts
+      echo "FIT${SERIAL}" > /target/etc/hostname
+      sed -i "s/ubuntu-teste/FIT${SERIAL}/g" /target/etc/hosts
     - |
       cat > /target/etc/netplan/00-installer-config.yaml << 'EOF'
       network:
@@ -104,16 +104,16 @@ autoinstall:
             dhcp4: true
             optional: true
             access-points:
-              "YOUR_WIFI_SSID_1":
-                password: "YOUR_WIFI_PASSWORD_1"
-              "YOUR_WIFI_SSID_2":
-                password: "YOUR_WIFI_PASSWORD_2"
+              "SSID da Rede":
+                password: "Senha da Rede"
+              "SSID da Rede":
+                password: "Senha da Rede"
       EOF
     - chmod 600 /target/etc/netplan/00-installer-config.yaml
     - |
       cat > /target/etc/systemd/system/fit-firstboot.service << 'EOF'
       [Unit]
-      Description=First Boot Configuration
+      Description=FIT Energia - Configuracao inicial
       After=network-online.target plymouth-quit.service
       Wants=network-online.target
       ConditionPathExists=!/var/lib/fit-firstboot-done
@@ -130,7 +130,7 @@ autoinstall:
     - |
       cat > /target/etc/systemd/system/fit-firstboot.timer << 'EOF'
       [Unit]
-      Description=First Boot Configuration Timer
+      Description= Timer configuracao inicial
       [Timer]
       OnBootSec=120s
       Unit=fit-firstboot.service

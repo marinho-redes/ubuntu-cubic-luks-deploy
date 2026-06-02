@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 echo "=================================================="
-echo " Instalação de Ferramentas de Desenvolvimento"
+echo " FIT Energia - Instalação de Ferramentas Dev"
 echo "=================================================="
 apt-get update -y
 echo "[1/9] Instalando ferramentas de terminal..."
@@ -29,6 +29,7 @@ apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 systemctl enable docker
 systemctl start docker
+
 echo "[7/9] Instalando GitHub CLI..."
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
     gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -53,6 +54,7 @@ echo "deb [signed-by=/usr/share/keyrings/pritunl.gpg] https://repo.pritunl.com/s
     tee /etc/apt/sources.list.d/pritunl.list > /dev/null
 apt-get update -y
 apt-get install -y pritunl-client-electron
+
 echo ""
 echo "=================================================="
 echo " Instalação concluída!"

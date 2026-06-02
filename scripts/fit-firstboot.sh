@@ -4,7 +4,7 @@ LOG="/var/log/fit-firstboot.log"
 SCRIPTS_DIR="/opt/fit-scripts"
 exec >> "$LOG" 2>&1
 echo "========================================"
-echo " First Boot - $(date)"
+echo " FIT First Boot - $(date)"
 echo "========================================"
 echo "[INFO] Aguardando rede..."
 for i in $(seq 1 30); do
@@ -22,5 +22,5 @@ systemctl disable fit-firstboot.timer
 systemctl stop fit-firstboot.timer
 touch /var/lib/fit-firstboot-done
 echo "========================================"
-echo " First Boot concluído - $(date)"
+echo " FIT First Boot concluído - $(date)"
 echo "========================================"

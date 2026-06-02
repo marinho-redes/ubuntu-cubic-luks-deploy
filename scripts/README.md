@@ -23,5 +23,3 @@ Pronto para uso sem modificação.
    ```bash
    bash "$SCRIPTS_DIR/seu-script.sh"
    ```
-
-⚠️ Nunca commite scripts com credenciais reais!

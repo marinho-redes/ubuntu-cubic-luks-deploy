@@ -1,0 +1,6 @@
+user-data
+*.credentials
+*.key
+*password*
+*.log
+*.iso
